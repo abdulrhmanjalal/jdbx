@@ -89,7 +89,7 @@ function insert(data, collectionName, callback) {
 
             for(var i = 0;i < data._times;i++){
                 data._id = uuid()
-                collectionData.push(data);
+                collectionData.push({ ...data});
             }
 
             formateFromCommands(collectionData)
@@ -294,6 +294,5 @@ function formateFromCommands(array){
     }
     
 }
-
 
 module.exports = {create, insert, read, deleteCollection, deleteCondition, readCondition, setup, update}
