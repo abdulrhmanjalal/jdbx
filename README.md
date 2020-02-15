@@ -2,9 +2,14 @@
 
 This module is a simple local json database good for small projects and very simple games
 
+
+
 # Installation
 
 `npm install jdbx-t`
+
+
+
 
 # Setup
 
@@ -19,6 +24,9 @@ Sets the main directory to Create the "data" folder that stores the collection
 ```js
 jdbx.setup(__dirname)
 ```
+
+
+
 
 # Create function
 
@@ -43,6 +51,9 @@ This will be returned
     "init": "collection"
 }
 ```
+
+
+
 
 # Read functions
 
@@ -110,6 +121,9 @@ jdbx.read("collection", (err, data)=>{
 })
 ```
 
+
+
+
 # Insert
 
 Usage 
@@ -136,6 +150,9 @@ Insert the data to the collection an amount of times `default:1`
 ```js
 jdbx.insert({name:"collection", _times:10, _index:0}, "collection") 
 ```
+
+
+
 
 # Update
 

@@ -89,9 +89,10 @@ function insert(data, collectionName, callback) {
 
             for(var i = 0;i < data._times;i++){
                 data._id = uuid()
-                formateFromCommands(data)
                 collectionData.push(data);
             }
+
+            formateFromCommands(collectionData)
 
             collectionData = JSON.stringify(collectionData, null, 2)
 
@@ -281,15 +282,17 @@ function formateDataType(array, type){
     }
 }
 
-function formateFromCommands(object){
-    let keys = Object.keys(object)
+function formateFromCommands(array){
+    for(var i = 0; i < array.length;i++){
+        let keys = Object.keys(array[i])
 
-    for(var i = 0;i < keys.length;i++){
-        if(keys[i].startsWith("_") && keys[i] != "_id"){
-            delete object[keys[i]]
+        for(var x = 0;x < keys.length;x++){
+            if(keys[x].startsWith("_") && keys[x] != "_id"){
+                delete array[i][keys[x]]
+            }
         }
-
     }
+    
 }
 
 
