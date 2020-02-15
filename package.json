@@ -1,0 +1,16 @@
+{
+  "name": "jdbx-t",
+  "version": "0.0.7",
+  "description": "A Local Json Database",
+  "main": "jsonStorage.js",
+  "keywords": [
+    "json",
+    "json databse",
+    "jsonstorage"
+  ],
+  "author": "Abdulrhman Jalal",
+  "license": "ISC",
+  "dependencies": {
+    "uuid": "^3.4.0"
+  }
+}
