@@ -1,7 +1,7 @@
 {
-  "name": "jdbx-t",
-  "version": "0.1.0",
-  "description": "A Local Json Database",
+  "name": "jdbx",
+  "version": "0.5.0",
+  "description": "A local json database",
   "main": "jsonStorage.js",
   "repository": {
     "type": "git",
@@ -9,8 +9,10 @@
   },
   "keywords": [
     "json",
-    "json databse",
-    "jsonstorage"
+    "json database",
+    "jsonstorage",
+    "json storage",
+    "db"
   ],
   "author": "Abdulrhman Jalal",
   "license": "ISC",

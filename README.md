@@ -6,183 +6,113 @@ This module is a simple local json database good for small projects and very sim
 
 # Installation
 
-`npm install jdbx-t`
-
-
+`npm install jdbx`
 
 
 # Setup
 
 ```js
-const jdbx = require("jdbx-t");
+const { Database } = require("./jdbx");
 
-jdbx.setup(__dirname)
+const db = new Database(__dirname, "dbName")
 ```
+# Functions
 
-Sets the main directory to Create the "data" folder that stores the collection
+
+
+## **Collection**
+
+A method that must start before other methods
+That gets the currenct collection 
+
+---
 
 ```js
-jdbx.setup(__dirname)
+db.collection("NAME")
 ```
 
+## **Insert**
 
+A method that pushs an object to the collection
 
-
-# Create function
-
-A function that accepts two parameters first for the initial data second for the collection name to create a collection
-
-Usage 
+---
 
 ```js
-jdbx.create({ name: "test" }, "collection") // initial data, collection name
-```
-
-If you set the initial data to null
-
-```js
-jdbx.create(null, "collection") // initial data to null
-```
-
-This will be returned
-
-```json
-{
-    "init": "collection"
-}
-```
-
-
-
-
-# Read functions
-
-There is two types of this function 
-
-First 
-
-A function that accepts one parameter for the collection name to read the data from
-
-```js
-jdbx.read("collection") // collection name
-```
-
-Second 
-
-A function that accepts two parameters first for the values to delete and second the collection name to return the data with this values
-
-```js
-jdbx.readCondition({init:"collection"}, "collection") 
-// data with these values, collection name 
-```
-### ReadCondition() condition properties
-
-
-#### _type property
-
-```js
-_type:"all"
-```
-Gets all entries with the condition if specified if not will return the collection
-
-```js
-_type:"one"
-```
-Gets The first entry from the condition if specified if not will return the first entry of the collection
-
-#### _index property
-
-```js
-_index:NUMBER
-```
-Gets The index of an entry from the condition if specified if not will return the index of the entire collection
-
-
-#### Useage
-```js
-jdbx.readCondition({name:"collection", _type:"all", _index:0}, "collection") 
-```
-
-### How to get data from these functions?
-
-First
-
-```js
-let data = jdbx.read("collection")
-```
-
-Second
-
-```js
-jdbx.read("collection", (err, data)=>{
-    if(!err){
-        console.log(data)
-    }
+db.collection("NAME").insert({
+    name:"Tom",
+    age:42,
+    email:"email@email.com"
 })
 ```
+---
+
+## props
+
+|  _prop | datatype | options  |                   description                   |
+|:------:|----------|----------|:-----------------------------------------------:|
+| _times |  Number  |     _    |        Number of times to insert the data       |
 
 
+## **Get**
 
-
-# Insert
-
-Usage 
-
-A function that accepts two parameters first for the values to insert and second the collection name to insert it to the collection
-
-```js
-jdbx.insert({data:"new Data"}, "collection")
-// data to push, collection name
-```
-
-### Insert() data object properties
-
-
-#### _times
+A method that gets data of a certain condition
+---s
+**Conditon get**
 
 ```js
-_times:NUMBER
+db.collection("NAME").get({name:"Tom"}, (err, data) => console.log(data))
 ```
-Insert the data to the collection an amount of times `default:1`
-
-
-#### Useage
-```js
-jdbx.insert({name:"collection", _times:10, _index:0}, "collection") 
-```
-
-
-
-
-# Update
-
-Usage 
-
-A function that accepts two parameters first for the values to update and second the collection name to update the data in
+---
+**All get**
 
 ```js
-jdbx.update({$fr:{name:"from"}, $to:{name:"to"}}, "collection")
-// $fr a data already inserted $to replace the data with
+db.collection("NAME").get({}, (err, data) => console.log(data))
 ```
+---
 
-# Delete functions
+## props
 
-There is two types of this function 
+|  _prop | datatype | options  |                   description                   |
+|:------:|----------|----------|:-----------------------------------------------:|
+|  _type |  String  | one, all | returns all data or the first index of the data |
+| _index |  Number  |     _    |           returns an index of a entry           |
 
-First 
 
-A function that accepts one parameter the collection name to delete the collection
+## **Update**
+
+A method that overwrite a existing entry with the to param
+
+---
+
+Two params ``(from, to)``
 
 ```js
-jdbx.deleteCollection("collection") // collection name 
+db.collection("NAME").update({name:"Tom"}, {name:"Bill"})
 ```
+## **Remove**
 
-Second 
+A method that Delets an entry, entries, collection
 
-A function that accepts two parameters first the values to delete and second the collection name to delete the value from the collection
-
+---
+**One Entry Remove**
 ```js
-jdbx.deleteCondition({init:"collection"}, "collection")
-// data to delete, collection name
+db.collection("NAME").remove({name:"Tom"})
 ```
+---
+**All Entries Remove**
+```js
+db.collection("NAME").remove({name:"Tom", _all:true})
+```
+---
+**Collection remove**
+```js
+db.collection("NAME").remove({_force:true})
+```
+---
+
+|  _prop | datatype | options  |                   description                   |
+|:------:|----------|----------|:-----------------------------------------------:|
+|  _force |  Boolean  | _ | Deletes a the collection if set to ``true`` |
+|  _all |  Boolean  | _ | Deletes all entries that match the condition if set to ``true``|
+
 
